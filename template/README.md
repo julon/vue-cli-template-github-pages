@@ -44,11 +44,15 @@ git push origin master
 ```
 Setup an empty 'gh-pages' branch
 ``` bash
-# checkout an empty orphan branch
+# checkout an empty orphan branch and unselect staged files
 git checkout --orphan gh-pages
+git rm --cached -r .
+
+# create an empty commit
+git commit --allow-empty -m "initial commit"
 
 # push it to the origin
-git push origin gh-pages
+git push -u origin gh-pages
 ```
 
 In your new project settings at https://github.com/[username]/[repository-name]/settings, go to the 'Github Pages' section and select gh-pages branch as the source.
@@ -67,7 +71,7 @@ Open the settings page on travis : https://travis-ci.org/[username]/[repository-
 
 Add an environment variable named GITHUB_TOKEN and set the value to the token generated previously on the github personal access token page.
 
-After every successful(unit & e2e) commit on branch master, the resulting dist will be deployed. Restart the build process on the last commit of the master branch if needed and make sure it deploys successfully.
+After every successful(unit & e2e) commit on branch master, the resulting dist will be deployed. Push a commit on the master branch and make sure it deploys successfully in travisCI build logs.
 Browse the url from github pages settings, you should see the vuejs webpack basic template.
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
